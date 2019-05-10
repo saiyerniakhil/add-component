@@ -1,12 +1,61 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types'
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+let address = {
+    fullname : 'Sai Yerni Akhil',
+    streetName: 'Ravindra Street',
+    city: 'Vizag',
+    stateCode: 'AP',
+    pinCode: 530008
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function Address({AddObj}) {
+    return(
+        <div>
+            <FullName name={address.fullname}/>
+            <StreetName street={address.streetName}/>
+            <City cityName={address.city} state={address.stateCode} pin={address.pinCode}/>
+        </div>    
+    )
+}
+
+
+let City = ({cityName,state,pin}) => {
+    return(
+        <div className='city'> {`${cityName}, ${state} ${pin}`} </div>
+    )
+}
+
+City.propTypes = {
+    cityName : PropTypes.string.isRequired,
+    state: PropTypes.string.isRequired,
+    pin: PropTypes.number.isRequired
+}
+
+let StreetName = ({street}) => {
+    return(
+        <div className='street-name'>
+            {street}
+        </div>    
+    )
+}
+
+StreetName.propTypes = {
+    street : PropTypes.string
+}
+
+let FullName = ({name}) => {
+    return(
+        <div className='full-name'>
+            {name}
+        </div>    
+    )
+}
+
+FullName.propTypes = {
+    name: PropTypes.string
+}
+
+ReactDOM.render(<Address/>,document.querySelector('#root'))
